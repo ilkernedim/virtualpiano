@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Piano</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="loader-overlay" class="loader-overlay">
+        <div class="loader-content">
+            <h2>Piyano Yükleniyor...</h2>
+            <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+            <p id="progress-text">Hazırlanıyor...</p>
+            <button id="start-btn" class="start-btn" style="display:none;">Piyanoya Başla</button>
+        </div>
+    </div>
+
+    <div id="app" class="app-container">
+        <header>
+            <h1>Sanal Piyano</h1>
+            <button id="settings-btn" class="settings-btn">Ayarlar</button>
+        </header>
+
+        <main>
+            <div class="piano-wrapper">
+                <div class="piano" id="piano"></div>
+            </div>
+        </main>
+    </div>
+
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Ayarlar</h2>
+                <button id="close-modal" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-row">
+                    <label>Nota isimleri</label>
+                    <label class="switch">
+                        <input type="checkbox" id="toggle-labels" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-row">
+                    <label>Klavye kısayolları</label>
+                    <label class="switch">
+                        <input type="checkbox" id="toggle-shortcuts" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-row">
+                    <label>Ses</label>
+                    <div class="slider-wrapper">
+                        <input type="range" id="volume-slider" min="0" max="100" value="50">
+                        <span class="slider-val" id="volume-val">50%</span>
+                    </div>
+                </div>
+                <div class="setting-row">
+                    <label>Oktav</label>
+                    <div class="slider-wrapper">
+                        <input type="range" id="octave-slider" min="-2" max="2" value="0">
+                        <span class="slider-val" id="octave-val">0</span>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <h3 style="margin: 0;">Tuş Atamaları</h3>
+                    <button id="clear-bindings-btn" class="settings-btn" style="background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 0.85rem; cursor: pointer;">Tümünü Sil</button>
+                </div>
+                <div class="key-bindings-container" id="key-bindings-list">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="audioEngine.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

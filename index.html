@@ -10,15 +10,6 @@
 </head>
 
 <body>
-    <div id="loader-overlay" class="loader-overlay">
-        <div class="loader-content">
-            <h2>Piyano Yükleniyor...</h2>
-            <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
-            <p id="progress-text">Hazırlanıyor...</p>
-            <button id="start-btn" class="start-btn" style="display:none;">Piyanoya Başla</button>
-        </div>
-    </div>
-
     <div id="app" class="app-container">
         <header>
             <h1>Sanal Piyano</h1>
@@ -70,7 +61,10 @@
 
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                     <h3 style="margin: 0;">Tuş Atamaları</h3>
-                    <button id="clear-bindings-btn" class="settings-btn" style="background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 0.85rem; cursor: pointer;">Tümünü Sil</button>
+                    <div>
+                        <button id="default-bindings-btn" class="settings-btn" style="background: #3b82f6; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 0.85rem; cursor: pointer; margin-right: 5px;">Varsayılana Dön</button>
+                        <button id="clear-bindings-btn" class="settings-btn" style="background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 0.85rem; cursor: pointer;">Tümünü Sil</button>
+                    </div>
                 </div>
                 <div class="key-bindings-container" id="key-bindings-list">
                 </div>

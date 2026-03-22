@@ -218,6 +218,18 @@ const initSettings = () => {
         };
     }
     
+    const defaultBindingsBtn = document.getElementById("default-bindings-btn");
+    if(defaultBindingsBtn) {
+        defaultBindingsBtn.onclick = () => {
+            if(confirm("Tüm klavye tuş atamalarını varsayılan ayarlara döndürmek istediğinize emin misiniz?")) {
+                bindings = JSON.parse(JSON.stringify(defaultBindings));
+                localStorage.setItem("piano_bindings", JSON.stringify(bindings));
+                renderBindings();
+                createPiano();
+            }
+        };
+    }
+    
     const clearBindingsBtn = document.getElementById("clear-bindings-btn");
     if(clearBindingsBtn) {
         clearBindingsBtn.onclick = () => {
@@ -340,7 +352,16 @@ const setupEvents = () => {
             e.preventDefault();
             const newKey = e.key.toLowerCase();
             
-            if (Object.values(bindings).includes(newKey) && bindings[listeningForBinding] !== newKey) {
+            if (newKey === "backspace" || newKey === "delete") {
+                bindings[listeningForBinding] = "";
+                localStorage.setItem("piano_bindings", JSON.stringify(bindings));
+                listeningForBinding = null;
+                renderBindings();
+                createPiano();
+                return;
+            }
+            
+            if (Object.values(bindings).includes(newKey) && bindings[listeningForBinding] !== newKey && newKey !== "") {
                 alert("Key already bound!");
                 listeningForBinding = null;
                 renderBindings();
@@ -384,33 +405,8 @@ const setupEvents = () => {
     });
 };
 
-const setupLoader = () => {
-    document.addEventListener('pianoDataLoaded', (e) => {
-        const { loaded, total } = e.detail;
-        const fill = document.getElementById('progress-fill');
-        const text = document.getElementById('progress-text');
-        if (fill) fill.style.width = `${(loaded / total) * 100}%`;
-        if (text) text.textContent = `${Math.round((loaded / total) * 100)}% (${loaded}/${total})`;
-        
-        if (loaded >= total && total > 0) {
-            const startBtn = document.getElementById('start-btn');
-            if (startBtn) startBtn.style.display = 'block';
-            if (text) text.textContent = "Piyano Hazır!";
-        }
-    });
-
-    const startBtn = document.getElementById('start-btn');
-    if (startBtn) {
-        startBtn.onclick = () => {
-            const overlay = document.getElementById('loader-overlay');
-            if (overlay) overlay.classList.add('hidden');
-        };
-    }
-};
-
 const initApp = () => {
     try {
-        setupLoader();
         createPiano();
         initSettings();
         setupEvents();
